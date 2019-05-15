@@ -3,6 +3,7 @@ package com.tdwl.wife.sql.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.tdwl.wife.sql.exception.ExceptionMsg;
+import com.tdwl.wife.sql.form.LoginForm;
 import com.tdwl.wife.sql.po.enums.ShortMessageType;
 import com.tdwl.wife.sql.utils.HttpClientUtils;
 import com.tdwl.wife.sql.utils.RandomUtils;
@@ -24,10 +25,13 @@ import org.apache.http.params.CoreConnectionPNames;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.nio.charset.Charset;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -60,11 +64,15 @@ public class UserLoginController {
 
     public static final String SMS_SUFFIX="。如非本人操作，请忽略本短信";
     /**
-     * 1.用户登陆接口
+     * 1.用户登陆接口,并且注册，用户需要填写loginForm中的内容，后续需要补全的资料可以在登陆后到个人中心进行修改
      *
      */
     @RequestMapping(value = {"/login","/login/"}, method = RequestMethod.POST)
-    public ResultMap login(){
+    public ResultMap login(@Valid LoginForm form, BindingResult bindingResult){
+        log.info("form={},{},{},{}",form.getMobile(),form.getName(),form.getPassword(),form.getValidCode());
+        if (bindingResult.hasErrors()){
+            return ResultMap.dataNewInstanceOfInvalidSimpleMsg(bindingResult);
+        }
 
 
         return ResultMap.newInstance();
