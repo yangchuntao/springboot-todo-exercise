@@ -46,14 +46,12 @@ public class UserLoginController {
     @Value("${excesice.sql.secretKey}")
     private String secretKey;
     
-    
     @Value("${mobileNum.regex}")
     private String mobileRegex;
 
     @Value("${shortMessage.url}")
     private String url;
-    
-    
+
     @Autowired
     RedisTemplate<String, String> redisTemplate;
 
@@ -65,6 +63,13 @@ public class UserLoginController {
      * 1.用户登陆接口
      *
      */
+    @RequestMapping(value = {"/login","/login/"}, method = RequestMethod.POST)
+    public ResultMap login(){
+
+
+        return ResultMap.newInstance();
+    }
+
 
 
     /**
@@ -75,7 +80,7 @@ public class UserLoginController {
     @RequestMapping(value = "/getValidCode", method = RequestMethod.GET)
     public ResultMap getValidCode(String mobile){
         log.info("mobile = {}", mobile);
-        //首先该号码是否是电话号码，如果不是请作判断
+        //TODO 以后将限制发送次数，针对手机号码
         ResultMap resultMap = new ResultMap();
         if (StringUtils.isEmpty(mobile)){
             return ResultMap.newInstance(ExceptionMsg.MOBILE_NULL);
@@ -83,15 +88,11 @@ public class UserLoginController {
         if (!mobile.matches(mobileRegex)){
             return ResultMap.newInstance(ExceptionMsg.MOBILE_INVALID);
         }
-        //如果符合要求，开始走验证码
-        //1.随机生成6位数验证码
         String randomNums = RandomUtils.getRandomNums(6);
-        //2.将生成的数放到redis中,并且设置过期时间，后期还要限制每人发送的条数
         try {
             String key = mobile + ":" + String.valueOf(ShortMessageType.VALID_CODE);
             redisTemplate.opsForValue().set(key, randomNums, 5, TimeUnit.MINUTES);
             log.info("validcode 插入到数据库");
-            //组装信息后开始调用接口
             String text = SMS_PREFIX + randomNums + SMS_SUFFIX;
             sendSms(url, mobile, text);
         }catch (Exception e){
@@ -117,6 +118,8 @@ public class UserLoginController {
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String test(String name){
+        //接受参数时要记得打日志
+        log.info("name = {}", name);
         redisTemplate.opsForValue().set("name",name);
         return name;
     }
