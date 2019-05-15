@@ -6,7 +6,18 @@
 
     <groupId>com.tdwl.cloud</groupId>
     <artifactId>tdwl-pass-center</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.4.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <modules>
+        <module>tdwl-common</module>
+        <module>tdwl-api</module>
+    </modules>
 
 
 </project>
