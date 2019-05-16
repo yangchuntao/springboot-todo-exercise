@@ -3,8 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/springboot-todo-exercise.iml" filepath="$PROJECT_DIR$/.idea/springboot-todo-exercise.iml" />
-      <module fileurl="file://$PROJECT_DIR$/tdwl-api/tdwlapi.iml" filepath="$PROJECT_DIR$/tdwl-api/tdwlapi.iml" />
-      <module fileurl="file://$PROJECT_DIR$/tdwl-common/tdwlcommon.iml" filepath="$PROJECT_DIR$/tdwl-common/tdwlcommon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tdwl-api/tdwl-api.iml" filepath="$PROJECT_DIR$/tdwl-api/tdwl-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tdwl-common/tdwl-common.iml" filepath="$PROJECT_DIR$/tdwl-common/tdwl-common.iml" />
     </modules>
   </component>
 </project>
