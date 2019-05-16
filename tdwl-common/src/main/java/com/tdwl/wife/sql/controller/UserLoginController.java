@@ -49,7 +49,7 @@ public class UserLoginController {
 
     @Value("${excesice.sql.secretKey}")
     private String secretKey;
-    
+    //TODO 将这个抽成一个注解
     @Value("${mobileNum.regex}")
     private String mobileRegex;
 
