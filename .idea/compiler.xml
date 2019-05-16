@@ -23,6 +23,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="tdwl-api" options="-parameters" />
+      <module name="tdwl-common" options="-parameters" />
       <module name="tdwlapi" options="-parameters" />
       <module name="tdwlcommon" options="-parameters" />
     </option>
